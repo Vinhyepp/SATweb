@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Login Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Admin - Manage Login Information</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Họ</th>
+                    <th>Tên</th>
+                    <th>Mật khẩu</th>
+                    <th>Thời gian đăng ký</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body">
+                <!-- User data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            displayUsers();
+        });
+
+        function displayUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userTableBody = document.getElementById('user-table-body');
+            userTableBody.innerHTML = '';
+
+            users.forEach((user, index) => {
+                const row = document.createElement('tr');
+                const createdAt = new Date(user.createdAt).toLocaleString('vi-VN');
+                
+                row.innerHTML = `
+                    <td>${user.email}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.firstName}</td>
+                    <td>
+                        <span class="password-field">
+                            <input type="password" value="${user.password}" readonly>
+                            <i class="fas fa-eye toggle-password" onclick="togglePassword(this)"></i>
+                        </span>
+                    </td>
+                    <td>${createdAt}</td>
+                    <td>
+                        <button onclick="deleteUser(${index})" class="delete-btn">
+                            <i class="fas fa-trash"></i> Xóa
+                        </button>
+                    </td>
+                `;
+                userTableBody.appendChild(row);
+            });
+        }
+
+        function deleteUser(index) {
+            if (confirm('Bạn có chắc muốn xóa người dùng này?')) {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                users.splice(index, 1);
+                localStorage.setItem('users', JSON.stringify(users));
+                displayUsers();
+            }
+        }
+
+        function togglePassword(icon) {
+            const input = icon.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

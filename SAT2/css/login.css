@@ -1,0 +1,159 @@
+/* Định dạng cho toàn bộ trang */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Định dạng cho container đăng nhập */
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 400px;
+    text-align: center;
+    margin: auto;
+}
+
+/* Định dạng cho header trong container đăng nhập */
+.login-header {
+    margin-bottom: 20px;
+}
+.login-header .logo {
+    width: 50px;
+    margin-bottom: 10px;
+}
+.login-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+.login-header h1 {
+    margin: 5px 0;
+    font-size: 24px;
+    color: #333;
+}
+.login-header p {
+    margin: 0;
+    color: #666;
+}
+
+/* Định dạng cho các input trong container đăng nhập */
+.input-group {
+    margin-bottom: 15px;
+    margin-right: 25px;
+    text-align: left;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+.input-group i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+/* Định dạng cho các tùy chọn */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.options label {
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+.options a {
+    color: #007bff;
+    text-decoration: none;
+}
+.options a:hover {
+    text-decoration: underline;
+}
+
+/* Định dạng cho nút đăng nhập */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Định dạng cho phần đăng nhập thay thế */
+.alternative-login {
+    margin: 20px 0;
+}
+.alternative-login p {
+    margin: 0;
+    color: #666;
+}
+.social-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.social-buttons button {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.social-buttons button.google {
+    background: #db4437;
+    color: white;
+}
+.social-buttons button.facebook {
+    background: #3b5998;
+    color: white;
+}
+.social-buttons button:hover {
+    opacity: 0.8;
+}
+
+/* Định dạng cho phần đăng ký */
+.register {
+    margin-top: 20px;
+}
+.register p {
+    margin: 0;
+    color: #666;
+}
+.register a {
+    color: #007bff;
+    text-decoration: none;
+}
+.register a:hover {
+    text-decoration: underline;
+}

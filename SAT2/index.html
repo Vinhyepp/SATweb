@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cổng Chia Sẻ Tài Liệu Cho Học Sinh</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Cổng Tài Liệu Giáo Viên</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#">Trang Chủ</a></li>
+            <li><a href="#">Tài Liệu</a></li>
+            <li id="account-link"><a href="account.html">Tài Khoản</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div id="root"></div> <!-- React app will be mounted here -->
+    </main>
+
+    <footer class="container">
+        <small><a href="#">Chính Sách Riêng Tư</a> • <a href="#">Liên Hệ</a></small>
+    </footer>
+
+    <script>
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const accountLink = document.getElementById('account-link');
+
+        if (!loggedInUser) {
+            accountLink.innerHTML = `
+                <a href="register.html">Đăng Ký</a>
+                <a href="login.html">Đăng Nhập</a>
+            `;
+        }
+    </script>
+    <script src="http://localhost:3000/static/js/bundle.js"></script> <!-- Link to React app -->
+</body>
+
+</html>
