@@ -2,7 +2,7 @@ services:
   - type: web
     name: sat-math-app
     env: node
-    buildCommand: npm install && npm run postinstall && npm run build
+    buildCommand: npm install && NODE_OPTIONS='--openssl-legacy-provider' npm run build
     startCommand: npm start
     envVars:
       - key: MONGODB_URI
@@ -11,6 +11,8 @@ services:
         value: production
       - key: PORT
         value: 10000
+      - key: NODE_OPTIONS
+        value: --openssl-legacy-provider
     buildFilter:
       paths:
       - package.json
