@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: sat-math-api
+    name: sat-math-app
     env: node
-    buildCommand: npm install
-    startCommand: node server/server.js
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: MONGODB_URI
         sync: false
