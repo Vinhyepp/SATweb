@@ -6,10 +6,20 @@
     <title>Admin - Manage Login Information</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <meta http-equiv="refresh" content="300"> <!-- Tự động refresh sau 5 phút -->
 </head>
 <body>
     <div class="admin-container">
         <h2>Admin - Manage Login Information</h2>
+        <div class="admin-controls">
+            <button onclick="exportData()" class="export-btn">
+                <i class="fas fa-download"></i> Xuất dữ liệu
+            </button>
+            <input type="file" id="importFile" accept=".json" style="display: none" onchange="importData(event)">
+            <button onclick="document.getElementById('importFile').click()" class="import-btn">
+                <i class="fas fa-upload"></i> Nhập dữ liệu
+            </button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -29,7 +39,22 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             displayUsers();
+            // Tự động cập nhật mỗi 30 giây
+            setInterval(displayUsers, 30000);
         });
+
+        // Auto refresh function
+        function autoRefresh() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userTableBody = document.getElementById('user-table-body');
+            
+            // So sánh dữ liệu mới với dữ liệu hiện tại
+            const currentRows = userTableBody.children.length;
+            if (currentRows !== users.length) {
+                displayUsers();
+                console.log('Data updated:', new Date().toLocaleString());
+            }
+        }
 
         function displayUsers() {
             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -67,6 +92,12 @@
                 users.splice(index, 1);
                 localStorage.setItem('users', JSON.stringify(users));
                 displayUsers();
+                // Thông báo xóa thành công
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.textContent = 'Đã xóa người dùng thành công';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
             }
         }
 
@@ -81,6 +112,52 @@
                 icon.classList.remove('fa-eye-slash');
                 icon.classList.add('fa-eye');
             }
+        }
+
+        function exportData() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const dataStr = JSON.stringify(users, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `users_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const users = JSON.parse(e.target.result);
+                        if (Array.isArray(users)) {
+                            if (confirm('Nhập dữ liệu mới sẽ ghi đè dữ liệu hiện tại. Bạn có chắc chắn?')) {
+                                localStorage.setItem('users', JSON.stringify(users));
+                                displayUsers();
+                                showNotification('Nhập dữ liệu thành công!');
+                            }
+                        } else {
+                            alert('File không đúng định dạng');
+                        }
+                    } catch (e) {
+                        alert('Lỗi khi đọc file: ' + e.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
         }
     </script>
 </body>

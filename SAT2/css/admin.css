@@ -95,3 +95,70 @@ table tr:nth-child(even) {
 .toggle-password:hover {
     color: #333;
 }
+
+/* Định dạng cho thông báo */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Thêm loading indicator */
+.loading {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    color: #007bff;
+    font-size: 14px;
+}
+
+/* Định dạng cho admin controls */
+.admin-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.export-btn, .import-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+}
+
+.export-btn {
+    background: #28a745;
+}
+
+.import-btn {
+    background: #17a2b8;
+}
+
+.export-btn:hover {
+    background: #218838;
+}
+
+.import-btn:hover {
+    background: #138496;
+}
