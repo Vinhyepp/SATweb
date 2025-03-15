@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Register user
 router.post('/register', async (req, res) => {
@@ -48,14 +49,13 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Mật khẩu không đúng' });
         }
 
-        res.json({
-            user: {
-                id: user._id,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName
-            }
-        });
+        const token = jwt.sign(
+            { id: user._id, email: user.email, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        res.json({ token });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
